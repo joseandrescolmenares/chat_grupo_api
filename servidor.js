@@ -15,8 +15,9 @@ const io = sockeio(server, {
 
 io.on('connection', socket => {
 
-    socket.on('conectado', () => {
-      console.log('usuario conectado')
+    socket.on('conectado', (name) => {
+        console.log(name)
+       io.emit('nombre', {name})
     })
 })
 
