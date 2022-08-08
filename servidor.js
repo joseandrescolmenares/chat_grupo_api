@@ -3,6 +3,7 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app)
 const cors = require('cors')
+const port = process.env.PORT || 3001
 
 const sockeio = require('socket.io')
 const io = sockeio(server, {
@@ -19,4 +20,4 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(3001, () => console.log('esta andando'))
+server.listen(port, () => console.log('esta andando'))
