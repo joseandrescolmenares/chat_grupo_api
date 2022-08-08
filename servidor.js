@@ -19,6 +19,9 @@ io.on('connection', socket => {
         console.log(name)
        io.emit('nombre', {name})
     })
+    socket.on('mensaje', (envio) =>{
+        io.emit('mensajes', {envio})
+    })
 })
 
 server.listen(port, () => console.log('esta andando'))
