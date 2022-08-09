@@ -15,11 +15,12 @@ const io = sockeio(server, {
 
 io.on('connection', socket => {
 
-    socket.on('conectado', (name) => {
-        console.log(name)
-       io.emit('nombre', {name})
+    socket.on('conectado', (imagenes,name) => {
+       io.emit('nombre', {name, imagenes})
+
     })
     socket.on('mensaje', (envio) =>{
+       
         io.emit('mensajes', {envio})
     })
 })
