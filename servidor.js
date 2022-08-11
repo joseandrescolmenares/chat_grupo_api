@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 const Msg = require('./models/mensaje')
 const User = require('./models/user')
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3001;
 
 mongoose.connect(process.env.MONGODB_URI || MONGODB).then(() => {
    console.log('Connected tomongodb')
@@ -28,19 +28,23 @@ const io = sockeio(server, {
 io.on('connection', socket => {
 
     socket.on('conectado', (imagenes,name) => {
-        const newuser = new User({name, imagenes})
-        newuser.save().then(() => {
-            io.emit('nombre', {name, imagenes})
+            io.emit('nombre', {name,imagenes})
         })
        
 
-    })
-    socket.on('mensaje', (img,name,msg) =>{
-      console.log(img,name,msg)
+
+  socket.on('resultado', (imagenes,name) =>{
+    const newuser = new User({name, imagenes})
+        newuser.save().then((result) => {
+          io.emit('envioResultado', {result})
+        })
+  })
+
+    socket.on('mensaje', (img,name,msg,id) =>{
         
-       const message = new Msg({name,msg,img});
+       const message = new Msg({name,msg,img,id});
        message.save().then(() => {
-        io.emit('mensajes', {name,msg,img})
+        io.emit('mensajes', {name,msg,img,id})
        })
         
     })

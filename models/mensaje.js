@@ -5,12 +5,15 @@ const msjSchema = new mongoose.Schema({
   },
   msg: {
     type: String,
-    required: true,
   },
 
   img: {
     type: String,
   },
+
+  id: {
+    type: String,
+  }
 });
 
 const Msg = mongoose.model("ms", msjSchema);
